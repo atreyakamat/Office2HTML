@@ -9,6 +9,11 @@ import org.apache.poi.hwpf.HWPFDocument;
 import org.apache.poi.hwpf.extractor.WordExtractor;
 import org.apache.poi.hwpf.model.PicturesTable;
 import org.apache.poi.hwpf.usermodel.Picture;
+import org.apache.poi.hwpf.usermodel.Range;
+import org.apache.poi.hwpf.usermodel.Table;
+import org.apache.poi.hwpf.usermodel.TableCell;
+import org.apache.poi.hwpf.usermodel.TableIterator;
+import org.apache.poi.hwpf.usermodel.TableRow;
 
 public class DocConverter {
 
@@ -29,23 +34,53 @@ public class DocConverter {
              HWPFDocument doc = new HWPFDocument(fis);
              PrintWriter writer = new PrintWriter(new FileOutputStream(htmlFile))) {
 
-            // Extract the document text
-            WordExtractor extractor = new WordExtractor(doc);
-            String[] paragraphs = extractor.getParagraphText();
-
-            // Begin writing HTML content
-            writer.println("<html>");
-            writer.println("<head><style>body { font-family: Arial, sans-serif; }</style></head>");
-            writer.println("<body>");
+            // Extract the document's text and table content
+            Range range = doc.getRange();
+            TableIterator tableIterator = new TableIterator(range);
 
             // Extract pictures from the document
             PicturesTable picturesTable = doc.getPicturesTable();
             List<Picture> pictures = picturesTable.getAllPictures();
             int imageIndex = 0;
 
-            // Loop through paragraphs and convert them to HTML paragraphs
-            for (String paragraph : paragraphs) {
-                writer.println("<p>" + paragraph.trim() + "</p>");
+            // Begin writing HTML content
+            writer.println("<html>");
+            writer.println("<head><style>body { font-family: Arial, sans-serif; }</style></head>");
+            writer.println("<body>");
+
+            // Iterate through paragraphs and tables
+            int currentTableIndex = 0;
+            for (int i = 0; i < range.numParagraphs(); i++) {
+                // If there's a table at this position, handle it
+                if (tableIterator.hasNext()) {
+                    Table table = tableIterator.next();
+                    if (range.getParagraph(i).isInTable()) {
+                        // Start table in HTML
+                        writer.println("<table border='1' style='border-collapse: collapse;'>");
+
+                        // Loop through table rows
+                        for (int rowIndex = 0; rowIndex < table.numRows(); rowIndex++) {
+                            TableRow row = table.getRow(rowIndex);
+                            writer.println("<tr>");
+
+                            // Loop through table cells
+                            for (int cellIndex = 0; cellIndex < row.numCells(); cellIndex++) {
+                                TableCell cell = row.getCell(cellIndex);
+                                writer.print("<td>");
+                                writer.print(cell.text().trim());  // Add cell text
+                                writer.println("</td>");
+                            }
+                            writer.println("</tr>");
+                        }
+                        writer.println("</table>");
+                    }
+                }
+
+                // Handle normal paragraphs
+                if (!range.getParagraph(i).isInTable()) {
+                    String paragraphText = range.getParagraph(i).text();
+                    writer.println("<p>" + paragraphText.trim() + "</p>");
+                }
             }
 
             // Handle images
