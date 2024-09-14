@@ -19,8 +19,25 @@ public class XlsxConverter {
              PrintWriter writer = new PrintWriter(new FileOutputStream(htmlFile))) {
 
             // Adding Bootstrap CSS link to the HTML
-            writer.println("<html><head>");
-            writer.println("<link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css\" rel=\"stylesheet\">");
+            writer.println("<!DOCTYPE html>");
+            writer.println("<html lang=\"en\">");
+            writer.println("<head>");
+            writer.println("<meta charset=\"UTF-8\">");
+            writer.println("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">");
+            writer.println("<title>Excel to HTML</title>");
+            writer.println("<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css\">");
+            writer.println("<style>");
+            writer.println("table, td, th { border: 1px solid white; border-collapse: collapse; }");
+            writer.println("td, th { padding: 8px; background-color: #FFFFFF; text-align: center; }");
+            writer.println("body { text-align: left; }"); // Align body content to the left
+            writer.println("</style>");
+            writer.println("<script>");
+            writer.println("    function functionOne() {console.log(\"Hello\");}");
+            writer.println("    function functionTwo() {console.log(\"Hello\");}");
+            writer.println("    function functionThree() {console.log(\"Hello\");}");
+            writer.println("    function functionFour() {console.log(\"Hello\");}");
+            writer.println("    function functionFive() {console.log(\"Hello\");}");
+            writer.println("</script>");
             writer.println("</head><body>");
             writer.println("<div class='container mt-5'>");
             writer.println("<table class='table table-bordered table-striped'>");  // Using Bootstrap table classes

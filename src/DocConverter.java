@@ -45,7 +45,15 @@ public class DocConverter {
 
             // Begin writing HTML content
             writer.println("<html>");
-            writer.println("<head><style>body { font-family: Arial, sans-serif; }</style></head>");
+            writer.println("<head><style>body { font-family: Arial, sans-serif; }</style>");
+            writer.println("<script>");
+            writer.println("    function functionOne() {console.log(\"Hello\");}");
+            writer.println("    function functionTwo() {console.log(\"Hello\");}");
+            writer.println("    function functionThree() {console.log(\"Hello\");}");
+            writer.println("    function functionFour() {console.log(\"Hello\");}");
+            writer.println("    function functionFive() {console.log(\"Hello\");}");
+            writer.println("</script>");
+            writer.println("</head>");
             writer.println("<body>");
 
             // Iterate through paragraphs and tables
