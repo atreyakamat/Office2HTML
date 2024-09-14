@@ -1,0 +1,19 @@
+{
+    "version":"0.2.0",
+    "configurations": [
+        {
+            "type":"java",
+            "name": "Debug MainRun",
+            "request":"launch",
+            "mainClass":"MainRun",
+            "projectName":"MODJavaProgram",
+            "cwd": "$(workspaceFolder)",
+            "console":"integratedTerminal",
+            "classpath":[
+                "bin",
+                "lib/*",
+                "src/*"
+            ]
+        }
+    ]
+}
