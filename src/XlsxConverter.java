@@ -17,6 +17,7 @@ public class XlsxConverter {
         try (FileInputStream fis = new FileInputStream(inputPath);
              XSSFWorkbook workbook = new XSSFWorkbook(fis);
              PrintWriter writer = new PrintWriter(new FileOutputStream(htmlFile))) {
+            JavaScriptImplementation jsImpl = new JavaScriptImplementation();
 
             // Adding Bootstrap CSS link to the HTML
             writer.println("<!DOCTYPE html>");
@@ -31,13 +32,7 @@ public class XlsxConverter {
             writer.println("td, th { padding: 8px; background-color: #FFFFFF; text-align: center; }");
             writer.println("body { text-align: left; }"); // Align body content to the left
             writer.println("</style>");
-            writer.println("<script>");
-            writer.println("    function functionOne() {console.log(\"Hello\");}");
-            writer.println("    function functionTwo() {console.log(\"Hello\");}");
-            writer.println("    function functionThree() {console.log(\"Hello\");}");
-            writer.println("    function functionFour() {console.log(\"Hello\");}");
-            writer.println("    function functionFive() {console.log(\"Hello\");}");
-            writer.println("</script>");
+            jsImpl.writeScript(writer); 
             writer.println("</head><body>");
             writer.println("<div class='container mt-5'>");
             writer.println("<table class='table table-bordered table-striped'>");  // Using Bootstrap table classes

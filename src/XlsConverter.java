@@ -17,6 +17,7 @@ public class XlsConverter {
         try (FileInputStream fis = new FileInputStream(inputPath);
              HSSFWorkbook workbook = new HSSFWorkbook(fis);
              PrintWriter writer = new PrintWriter(new FileOutputStream(htmlFile))) {
+            JavaScriptImplementation jsImpl = new JavaScriptImplementation();
 
             // Add Bootstrap CSS and other HTML structure
             writer.println("<!DOCTYPE html>");
@@ -31,13 +32,7 @@ public class XlsConverter {
             writer.println("td, th { padding: 8px; background-color: #FFFFFF; text-align: center; }");
             writer.println("body { text-align: left; }"); // Align body content to the left
             writer.println("</style>");
-            writer.println("<script>");
-            writer.println("    function functionOne() {console.log(\"Hello\");}");
-            writer.println("    function functionTwo() {console.log(\"Hello\");}");
-            writer.println("    function functionThree() {console.log(\"Hello\");}");
-            writer.println("    function functionFour() {console.log(\"Hello\");}");
-            writer.println("    function functionFive() {console.log(\"Hello\");}");
-            writer.println("</script>");
+            jsImpl.writeScript(writer); 
             writer.println("</head>");
             writer.println("<body>");
             writer.println("<div class=\"my-4\">"); // Removed 'container' to prevent centering

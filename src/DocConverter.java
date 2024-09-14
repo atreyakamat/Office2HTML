@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
+
 import org.apache.poi.hwpf.HWPFDocument;
 import org.apache.poi.hwpf.extractor.WordExtractor;
 import org.apache.poi.hwpf.model.PicturesTable;
@@ -14,6 +15,7 @@ import org.apache.poi.hwpf.usermodel.Table;
 import org.apache.poi.hwpf.usermodel.TableCell;
 import org.apache.poi.hwpf.usermodel.TableIterator;
 import org.apache.poi.hwpf.usermodel.TableRow;
+
 
 public class DocConverter {
 
@@ -42,17 +44,12 @@ public class DocConverter {
             PicturesTable picturesTable = doc.getPicturesTable();
             List<Picture> pictures = picturesTable.getAllPictures();
             int imageIndex = 0;
+            JavaScriptImplementation jsImpl = new JavaScriptImplementation();
 
             // Begin writing HTML content
             writer.println("<html>");
             writer.println("<head><style>body { font-family: Arial, sans-serif; }</style>");
-            writer.println("<script>");
-            writer.println("    function functionOne() {console.log(\"Hello\");}");
-            writer.println("    function functionTwo() {console.log(\"Hello\");}");
-            writer.println("    function functionThree() {console.log(\"Hello\");}");
-            writer.println("    function functionFour() {console.log(\"Hello\");}");
-            writer.println("    function functionFive() {console.log(\"Hello\");}");
-            writer.println("</script>");
+            jsImpl.writeScript(writer); 
             writer.println("</head>");
             writer.println("<body>");
 

@@ -34,17 +34,11 @@ public class DocxConverter {
         try (FileInputStream fis = new FileInputStream(inputPath);
              XWPFDocument doc = new XWPFDocument(fis);
              PrintWriter writer = new PrintWriter(new FileOutputStream(htmlFile))) {
-
+            JavaScriptImplementation jsImpl = new JavaScriptImplementation();
             // Begin writing HTML content
             writer.println("<html>");
             writer.println("<head><style>body { font-family: Arial, sans-serif; }</style>");
-            writer.println("<script>");
-            writer.println("    function functionOne() {console.log(\"Hello\");}");
-            writer.println("    function functionTwo() {console.log(\"Hello\");}");
-            writer.println("    function functionThree() {console.log(\"Hello\");}");
-            writer.println("    function functionFour() {console.log(\"Hello\");}");
-            writer.println("    function functionFive() {console.log(\"Hello\");}");
-            writer.println("</script>");
+            jsImpl.writeScript(writer); 
             writer.println("</head>");
             writer.println("<body>");
 
