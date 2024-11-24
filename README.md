@@ -40,10 +40,11 @@ The **File to HTML Converter** is designed to handle various file formats, extra
 src/
 ├── DocConverter.java             # Handles DOC to HTML conversion
 ├── DocxConverter.java            # Handles DOCX to HTML conversion
-├── ExcelConverter.java           # Handles XLS/XLSX to HTML conversion
+├── XlsxConverter.java            # Handles XLSX to HTML conversion
+├── XlsConverter.java           # Handles XLS to HTML conversion
 ├── JavaScriptImplementation.java # Centralized JavaScript code as strings
 ├── MainRun.java                  # Main entry point of the application
-└── resources/                    # Contains input and output directories
+
 ```
 
 ---
